@@ -1,0 +1,33 @@
+<div  data-controller="modal"
+      data-modal-url-value="<%= categories_path(format: :turbo_stream) %>"
+>
+  <!-- botão para abrir -->
+  <button data-action="click->modal#open" class="px-4 py-2 bg-blue-600 text-white rounded">
+    Abrir Modal
+  </button>
+
+  <!-- Modal -->
+  <div data-modal-target="modal"
+     class="fixed inset-0 bg-orange-500/50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl min-h-[600px] max-h-[80vh] p-6 relative overflow-y-auto">
+      <button data-action="click->modal#close" class="absolute top-2 right-2 text-gray-600 hover:text-gray-900">&times;</button>
+
+      <h2 class="text-xl font-semibold mb-4">Categorias</h2>
+
+      <!-- Input de busca -->
+      <input
+        type="text"
+        placeholder="Buscar categoria..."
+        data-action="input->modal#search"
+        data-modal-target="input"
+        class="w-full mb-4 p-2 border rounded"
+      />
+      <turbo-frame
+        id="categories_modal"
+        data-modal-target="frame"
+      >
+        <div class="text-gray-500">Carregando categorias...</div>
+      </turbo-frame>
+    </div>
+  </div>
+</div>

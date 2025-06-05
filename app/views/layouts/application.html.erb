@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RailsTailwindImportMaps</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application" %>
+
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <header class="bg-white shadow-md">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-blue-600">MeuApp</h1>
+        <nav class="space-x-4">
+          <%= link_to "Início", root_path, class: "text-gray-700 hover:text-blue-600" %>
+          <%= link_to "Sobre", "#", class: "text-gray-700 hover:text-blue-600" %>
+        </nav>
+      </div>
+    </header>
+    <main class="container mx-auto mt-28 px-5 flex">
+      <%= yield %>
+    </main>
+
+  </body>
+</html>
