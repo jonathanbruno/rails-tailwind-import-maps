@@ -3,13 +3,14 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 
   initialize() {
-    this.selectedIndex = 0;
+    this.selectedIndex = -1;
     this.previousIndex = undefined;
   }
 
   connect() {
     document.addEventListener("keydown", this.handleKeydown.bind(this))
     this.addMouseEnterListeners()
+    this.addMouseClickListeners()
   }
 
   disconnect() {
@@ -25,18 +26,32 @@ export default class extends Controller {
       this.selectPreviousRow();
     } else if (event.key === "Enter") {
       event.preventDefault();
-      this.openSelectedRow();
+      this.triggerRowSelected();
     }
+  }
+
+  triggerRowSelected() {
+    const rows = this.element.querySelectorAll("tr");
+    if (this.selectedIndex < 0 || this.selectedIndex >= rows.length) {
+      return null;
+    }
+    const selectedRow = rows[this.selectedIndex];
+    this.element.dispatchEvent(new CustomEvent("table_navigator:rowSelected", {
+      detail: { row: selectedRow },
+      bubbles: true
+    }));
   }
 
   selectNextRow() {
     const rows = this.element.querySelectorAll("tr");
     if (rows.length === 0) return;
 
-    this.previousIndex = this.selectedIndex;
-    this.selectedIndex = (this.selectedIndex + 1) % rows.length;
+    if (this.selectedIndex < rows.length - 1 ) {
+      this.previousIndex = this.selectedIndex;
+      this.selectedIndex = (this.selectedIndex + 1) //% rows.length;
 
-    this.updateRowSelection(rows);
+      this.updateRowSelection(rows);
+    }
   }
 
   selectPreviousRow() {
@@ -52,9 +67,9 @@ export default class extends Controller {
   updateRowSelection(rows) {
     rows.forEach((row, index) => {
       if (index === this.selectedIndex) {
-        row.classList.add("bg-gray-50");
+        row.classList.add("table-row-selected");
       } else {
-        row.classList.remove("bg-gray-50");
+        row.classList.remove("table-row-selected");
       }
     });
 
@@ -69,9 +84,28 @@ export default class extends Controller {
     const rows = this.element.querySelectorAll("tr");
     rows.forEach((row, index) => {
       row.addEventListener("mouseenter", () => {
-        console.log(`Mouse entered row ${index}`);
-        this.selectedIndexValue = -1
+        //this.selectedIndex = index;
+        //this.updateRowSelection(rows)
+        //console.log("Mouse entered row:", index);
+      })
+    })
+  }
+
+  addMouseClickListeners() {
+    const rows = this.element.querySelectorAll("tr");
+    rows.forEach((row, index) => {
+      row.addEventListener("click", () => {
+        this.selectedIndex = index;
         this.updateRowSelection(rows)
+        //this.triggerRowSelected();
+        console.log("Row clicked:", index);
+      })
+
+      row.addEventListener("dblclick", () => {
+        this.selectedIndex = index;
+        this.updateRowSelection(rows)
+        this.triggerRowSelected();
+        console.log("Row Double clicked:", index);
       })
     })
   }

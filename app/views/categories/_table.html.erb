@@ -5,18 +5,16 @@
         <tr>
           <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">ID</th>
           <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nome</th>
-          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Ações</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-200" data-controller="table-navigator">
         <% categories.each do |category| %>
-          <tr class="hover:bg-gray-50">
-            <td class="px-4 py-2 text-sm text-gray-900"><%= category.id %></td>
+          <tr class="hover:bg-blue-500 cursor-pointer table-row"
+              data-id="<%= category.id %>"
+              data-label="<%= category.name %>"
+          >
+            <td class="px-4 py-2 text-sm text-gray-900 w-lg"><%= category.id %></td>
             <td class="px-4 py-2 text-sm text-gray-900"><%= category.name %></td>
-            <td class="px-4 py-2 text-sm">
-              <%= link_to 'Editar', edit_category_path(category), class: "text-blue-600 hover:underline mr-2" %>
-              <%= link_to 'Excluir', category_path(category), method: :delete, data: { turbo_confirm: 'Tem certeza?' }, class: "text-red-600 hover:underline" %>
-            </td>
           </tr>
         <% end %>
       </tbody>

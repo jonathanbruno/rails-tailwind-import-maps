@@ -1,0 +1,11 @@
+table > tbody > tr.table-row {
+  background-color: var(--color-table-row);
+}
+
+table > tbody > tr.table-row:hover {
+    background-color: var(--color-table-row-selected);
+  }
+
+table > tbody > tr.table-row-selected {
+  background-color: var(--color-table-row-selected);
+}

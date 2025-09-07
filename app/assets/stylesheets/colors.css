@@ -1,0 +1,16 @@
+/* Color Variables */
+:root {
+  --color-primary: #2979e2;
+  --color-secondary: #f8fafc;
+  --color-neutral: #fafafa;
+  --color-success: #f0fdf4;
+  --color-warning: #fffbeb;
+  --color-error: #fef2f2;
+  --color-info: #ecfeff;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+
+  --color-table-row: #e1e1ef;
+  --color-table-row-selected: #7daeee;
+}

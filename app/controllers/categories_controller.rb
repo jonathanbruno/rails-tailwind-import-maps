@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   # GET /categories or /categories.json
   def index
     pp params[:q]
-    @categories = Category.ransack(params[:q]).result.limit(10).order(created_at: :desc)
+    @categories = Category.ransack(params[:q]).result.limit(100).order(created_at: :desc)
 
     respond_to do |format|
       format.html
